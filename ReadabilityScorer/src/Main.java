@@ -1,5 +1,9 @@
+import java.io.File;
+
 public class Main {
     public static void main(String[] args) {
-        ReadabilityScorer readabilityScorer = new ReadabilityScorer();
+        String fileName = args[0];
+        File file = new File(fileName);
+        ReadabilityScorer readabilityScorer = new ReadabilityScorer(file);
     }
 }
