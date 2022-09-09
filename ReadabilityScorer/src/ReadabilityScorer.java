@@ -8,6 +8,7 @@ public class ReadabilityScorer {
     private double wordCount;
     private double sentenceCount;
     private double characterCount;
+    private double score;
 
     public ReadabilityScorer(File file) {
         fileToString(file);
@@ -20,6 +21,7 @@ public class ReadabilityScorer {
         countWords();
         countSentences();
         countCharacters();
+        calculateScore();
 
         System.out.print("Words: ");
         System.out.println((int) getWordCount());
@@ -29,6 +31,20 @@ public class ReadabilityScorer {
 
         System.out.print("Characters: ");
         System.out.println((int) getCharacterCount());
+
+        System.out.printf("The score is: %.2f", getScore());
+        System.out.println();
+
+        System.out.println("This text should be understood by " + getAgeRange() + " year-olds.");
+    }
+
+    private String getAgeRange() {
+
+        int ageRangeOne = (int)Math.ceil(getScore()) + 4;
+        int ageRangeTwo = (int)Math.ceil(getScore()) + 5;
+
+        return ageRangeOne + "-" + ageRangeTwo;
+
     }
 
     // turn the file into a string and set fileData variable to its value
@@ -92,6 +108,10 @@ public class ReadabilityScorer {
 
     }
 
+    private void calculateScore() {
+        setScore(4.71 * getCharacterCount() / getWordCount() + 0.5 * getWordCount() / getSentenceCount() - 21.43);
+    }
+
     // getters and setters
 
 
@@ -125,5 +145,13 @@ public class ReadabilityScorer {
 
     public void setCharacterCount(double characterCount) {
         this.characterCount = characterCount;
+    }
+
+    public double getScore() {
+        return score;
+    }
+
+    public void setScore(double score) {
+        this.score = score;
     }
 }
